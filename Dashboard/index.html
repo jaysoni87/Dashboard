@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Dashboard</title>
+    <script src='https://cdn.tailwindcss.com'></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .interactive-card:hover { transform: scale(1.05); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+        .sidebar-item:hover { background-color: #374151; transition: all 0.3s ease; }
+        .sidebar-item:hover img { transform: scale(1.2); transition: transform 0.3s ease; }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex flex-col">
+        <!-- Navbar -->
+        <nav class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
+            <div class="text-xl font-semibold text-gray-800">Dashboard</div>
+            <div>
+                <button class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-all">Log out</button>
+            </div>
+        </nav>
+
+        <!-- Main content -->
+        <div class="flex flex-1">
+            <!-- Sidebar -->
+            <aside class="w-64 bg-gray-800 text-gray-200 py-6 px-4 hidden md:block">
+                <ul>
+                    <li class="py-2 px-4 sidebar-item rounded-md"><a href="#">Analytics</a></li>
+                    <li class="py-2 px-4 sidebar-item rounded-md"><a href="#">Dashboard</a></li>
+                    <li class="py-2 px-4 sidebar-item rounded-md"><a href="#">Reports</a></li>
+                    <li class="py-2 px-4 sidebar-item rounded-md"><a href="#">Settings</a></li>
+                </ul>
+            </aside>
+
+            <!-- Dashboard Content -->
+            <main class="flex-1 bg-gray-100 p-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Card 1 -->
+                    <div class="bg-white p-4 shadow-md rounded-md interactive-card transition-all">
+                        <div class="text-gray-600">Total Users</div>
+                        <div class="text-3xl font-bold">1,200</div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="bg-white p-4 shadow-md rounded-md interactive-card transition-all">
+                        <div class="text-gray-600">Sales</div>
+                        <div class="text-3xl font-bold">₹20,40,000</div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="bg-white p-4 shadow-md rounded-md interactive-card transition-all">
+                        <div class="text-gray-600">New Sign-ups</div>
+                        <div class="text-3xl font-bold">350</div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="bg-white p-4 shadow-md rounded-md interactive-card transition-all">
+                        <div class="text-gray-600">Bounce Rate</div>
+                        <div class="text-3xl font-bold">40%</div>
+                    </div>
+                </div>
+
+                <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Chart Card 1 -->
+                    <div class="bg-white p-4 shadow-md rounded-md interactive-card transition-all">
+                        <div class="text-xl font-semibold mb-4">User Growth</div>
+                        <canvas id="userGrowthChart" class="h-64 w-full"></canvas>
+                    </div>
+
+                    <!-- Chart Card 2 -->
+                    <div class="bg-white p-4 shadow-md rounded-md interactive-card transition-all">
+                        <div class="text-xl font-semibold mb-4">Sales Trends</div>
+                        <canvas id="salesChart" class="h-64 w-full"></canvas>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Script for Charts -->
+    <script>
+        // User Growth Chart
+        const userGrowthCtx = document.getElementById('userGrowthChart').getContext('2d');
+        new Chart(userGrowthCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+                datasets: [{
+                    label: 'User Growth',
+                    data: [120, 150, 180, 210, 250, 300, 350, 400],
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderWidth: 2,
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Sales Chart
+        const salesCtx = document.getElementById('salesChart').getContext('2d');
+        new Chart(salesCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+                datasets: [{
+                    label: 'Sales (in INR)',
+                    data: [200000, 250000, 270000, 300000, 350000, 400000, 450000, 500000],
+                    backgroundColor: 'rgba(153, 102, 255, 0.6)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
